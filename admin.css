@@ -1,0 +1,121 @@
+/* Existing styles */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 1em 20px;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+#admin-section {
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    color: #fff;
+}
+
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.footer {
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    margin-top: 485px; /* Push the footer to the bottom */
+}
+
+/* New styles for the "View Feedback" button */
+.view-feedback {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 30px;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.userBtn,
+.bookBtn {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #1364C0 ;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #2c9caf;
+    margin-right: 20px; /* Add right margin to create a gap */
+}
+
+.userBtn:hover,
+.bookBtn:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    outline: 2px solid #1364C0 ;
+    box-shadow: 4px 5px 17px -4px #1364C0 ;
+}
+
+.userBtn::before,
+.bookBtn::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #1364C0 ;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+}
+
+.userBtn:hover::before,
+.bookBtn:hover::before {
+    width: 250%;
+}

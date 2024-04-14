@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Manage Bookings</title>
+    <link rel="stylesheet" href="viewUser.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-box">
+        <img src="logo.png" alt="UPTM Logo" class="logo">
+    </div>
+    <h1>Admin Panel - Manage Bookings</h1>
+</header>
+
+<div class="container">
+    <h2>View Bookings</h2>
+
+    <!-- Select Item Dropdown -->
+    <label for="itemSelect">Select Item:</label>
+    <select id="itemSelect">
+        <option value="hdmiCable">HDMI Cable</option>
+        <option value="projector">Projector</option>
+        <option value="projectorRemote">Projector Remote</option>
+        <option value="extension">Extension</option>
+    </select>
+
+    <!-- Display Bookings Table -->
+    <table id="bookingTable">
+        <thead>
+            <tr>
+                <th>Booking ID</th> <!-- New column for Booking ID -->
+                <th>User Name</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Booking Date</th>
+                <th>Booking Time</th>
+                <th>Note</th> <!-- New column for note -->
+                <th>Action</th> <!-- Column for action button -->
+            </tr>
+        </thead>
+        <tbody id="bookingTableBody"></tbody>
+    </table>
+</div>
+
+<footer class="footer">
+    <div class="col-2">
+        <a href="admin_interface.html" class="view-feedback">Back to Admin Dashboard</a>
+    </div>
+</footer>
+
+<script>
+    // Function to fetch and display bookings for the selected item
+    function fetchBookings() {
+        var selectedItem = document.getElementById("itemSelect").value;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var bookings = JSON.parse(xhr.responseText);
+                    displayBookings(bookings);
+                } else {
+                    console.error('Error fetching booking data:', xhr.status);
+                }
+            }
+        };
+        xhr.open("GET", "fetch_bookings.php?item=" + selectedItem, true);
+        xhr.send();
+    }
+
+    // Function to display bookings in the table
+    function displayBookings(bookings) {
+        var tableBody = document.getElementById("bookingTableBody");
+        tableBody.innerHTML = ""; // Clear previous data
+
+        bookings.forEach(function(booking) {
+            var row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${booking.BookingID}</td> <!-- Display Booking ID -->
+                <td>${booking.UserName}</td>
+                <td>${booking.ItemName}</td>
+                <td>${booking.Quantity}</td>
+                <td>${booking.BookingDate}</td>
+                <td>${booking.BookingTime}</td>
+                <td contenteditable="false" class="editable" data-booking-id="${booking.BookingID}">${booking.Note}</td> <!-- Editable note column -->
+                <td><button onclick="editNote(${booking.BookingID})">Update</button></td> <!-- Update button -->
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function editNote(bookingID) {
+    var noteElement = document.querySelector(`td[data-booking-id="${bookingID}"]`);
+    var newNote = prompt("Enter new note:");
+
+    if (newNote !== null && newNote.trim() !== "") {
+        noteElement.textContent = newNote;
+
+        // Send an AJAX request to update the note in the database
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Note updated successfully');
+                } else {
+                    console.error('Error updating note:', xhr.status);
+                    // Revert the note if update fails
+                    noteElement.textContent = ""; // Revert to empty string or previous value
+                }
+            }
+        };
+
+        // Prepare and send the request
+        xhr.open("POST", "update_note.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(`bookingID=${bookingID}&note=${encodeURIComponent(newNote)}`);
+    }
+}
+
+    // Event listener for item select change
+    document.getElementById("itemSelect").addEventListener("change", fetchBookings);
+
+    // Initial fetch of bookings when the page loads
+    fetchBookings();
+</script>
+
+</body>
+</html>
+    

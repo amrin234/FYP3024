@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Manage Users</title>
+    <link rel="stylesheet" href="viewUser.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-box">
+            <img src="logo.png" alt="UPTM Logo" class="logo">
+        </div>
+        <h1>Admin Panel - Manage Users</h1>
+    </header>
+
+    <div class="container">
+        <h2>Registered Users</h2>
+
+        <!-- Search User -->
+        <input type="text" id="searchInput" placeholder="Search by name">
+        <button id="searchBtn">Search</button>
+
+        <!-- Container to display users -->
+        <div id="userListContainer"></div>
+
+        <!-- Table to display users -->
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Faculty</th>
+                    <th>Extension</th>
+                    <th>Registration Date</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody"></tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <div class="col-2">
+            <a href="admin_interface.html" class="view-feedback">Back to Admin Dashboard</a>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("searchBtn").addEventListener("click", function() {
+            var searchTerm = document.getElementById("searchInput").value.trim();
+            if (searchTerm !== "") {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var users = JSON.parse(xhr.responseText);
+                            displayUsers(users);
+                        } else {
+                            console.error('Error fetching user data:', xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "search_users.php?search=" + searchTerm, true);
+                xhr.send();
+            } else {
+                alert("Please enter a search term.");
+            }
+        });
+
+        function displayUsers(users) {
+    var tableBody = document.getElementById("userTableBody");
+    tableBody.innerHTML = ""; // Clear previous data
+
+    users.forEach(function(user) {
+        var row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${user.UserID}</td>
+            <td>${user.Name}</td>
+            <td>${user.Email}</td>
+            <td>${user.PhoneNumber}</td>
+            <td>${user.Option}</td>
+            <td>${user.Extension}</td>
+            <td>${user.RegistrationDate}</td>
+            <td><button onclick="editUser(${user.UserID})">Edit</button></td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+function editUser(userId) {
+    // Redirect to the edit page with the user ID as a parameter
+    window.location.href = `edit_user.php?id=${userId}`;
+}
+    </script>
+
+</body>
+</html>

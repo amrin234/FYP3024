@@ -1,0 +1,81 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 1em 20px;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    background-color: #fff; /* White background color for the logo container */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
+}
+
+.logo {
+    max-width: 100px;
+    margin-bottom: 10px; /* Add some margin between the logo and the title */
+}
+
+#login-section {
+    max-width: 400px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+form {
+    margin-top: 2em;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 0.8em 1.5em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1em; /* Add margin between the buttons */
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.error-message {
+    color: red; /* Color for error messages */
+    margin-top: 1em; /* Add margin between error messages and other elements */
+}

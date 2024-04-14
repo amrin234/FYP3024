@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Feedback - University Item Booking System</title>
+    <link rel="stylesheet" href="viewUser.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-box">
+            <img src="logo.png" alt="UPTM Logo" class="logo">
+        </div>
+        <h1>View Feedback</h1>
+    </header>
+
+    <div class="container">
+        <h2>Feedback</h2>
+
+        <!-- Table to display feedback -->
+        <table id="feedbackTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Feedback</th>
+                </tr>
+            </thead>
+            <tbody id="feedbackTableBody"></tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <div class="col-2">
+            <a href="admin_interface.html" class="view-feedback">Back to Admin Dashboard</a>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var feedbackData = JSON.parse(this.responseText);
+                    displayFeedback(feedbackData);
+                }
+            };
+            xhttp.open("GET", "get_feedback.php", true);
+            xhttp.send();
+        };
+
+        function displayFeedback(feedbackData) {
+            var tableBody = document.getElementById("feedbackTableBody");
+            tableBody.innerHTML = ""; // Clear previous data
+            feedbackData.forEach(function (feedback) {
+                var row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${feedback.id}</td>
+                    <td>${feedback.date}</td>
+                    <td>${feedback.comment}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

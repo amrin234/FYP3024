@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Item Booking System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-box">
+            <img src="logo.png" alt="UPTM Logo" class="logo"> <!-- Add your logo here -->
+        </div>
+        <h1>UPTM IT Booking System</h1>
+    </header>
+
+    <section id="booking-section">
+        <h2>Book an Item</h2>
+        <p>Efficiently manage and book items for your university needs.</p>
+
+        <!-- Add a hidden input field to store the username -->
+        <input type="hidden" id="username" name="username" value="<?php echo $loggedInUsername; ?>">
+
+        <form id="bookingForm" method="post" action="process_booking.php">
+            <label for="itemName">Select Item:</label>
+            <select id="itemName" name="itemName" required>
+                <option value="hdmiCable">HDMI Cable</option>
+                <option value="projector">Projector</option>
+                <option value="projectorRemote">Projector Remote</option>
+                <option value="extension">Extension</option>
+            </select>
+
+            <label for="itemQuantity">Quantity:</label>
+            <input type="number" id="itemQuantity" name="itemQuantity" required>
+
+            <label for="bookingDate">Booking Date:</label>
+            <input type="date" id="bookingDate" name="bookingDate" required>
+
+            <label for="bookingTime">Booking Time:</label>
+            <input type="time" id="bookingTime" name="bookingTime" required>
+
+            <label for="note">Note:</label>
+            <input type="text" id="note" name="note" placeholder="Add a note">
+
+            <button type="submit">Book Item</button>
+        </form>
+    </section>
+
+    <div class="footer">
+        <div class="col-1">
+            <h3>USEFUL LINKS</h3>
+            <a href="https://www.uptm.edu.my/index.php/about-us">About Us</a>
+            <a href="Faq.pdf">How To Use</a>
+        </div>
+        <div class="col-2">
+            <form id="feedbackForm" method="post" action="submit_feedback.php">
+                <input type="text" name="comment" placeholder="Your Comment" required>
+                <br>
+                <button type="submit">SUBMIT YOUR FEEDBACK</button>
+            </form>
+        </div>
+        <div class="col-3">
+            <h3>Contact</h3>
+            <p>AMIN , 018-571 0391</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

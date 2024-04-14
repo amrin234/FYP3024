@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login - University Item Booking System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-box">
+            <img src="logo.png" alt="UPTM Logo" class="logo"> <!-- Add your logo here -->
+        </div>
+        <h1>UPTM IT Booking System - Login</h1>
+    </header>
+
+    <section id="login-section">
+        <!-- Display error message if present -->
+        <div id="error-message"></div>
+
+        <form id="loginForm" method="post" action="login.php"> <!-- Point to login.php -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Register Button -->
+        <button id="registerButton" class="register-button">Register</button>
+    </section>
+
+    <!-- JavaScript to redirect to register.html -->
+    <script>
+        document.getElementById("registerButton").addEventListener("click", function() {
+            window.location.href = "register.html";
+        });
+
+        // Function to parse URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        // Check if there's an error message in the URL
+        var errorMessage = getUrlParameter('error');
+        if (errorMessage) {
+            // Display the error message
+            document.getElementById('error-message').innerHTML = "<p class='error-message'>" + errorMessage + "</p>";
+        }
+    </script>
+
+</body>
+
+</html>
